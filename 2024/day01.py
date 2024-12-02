@@ -1,10 +1,9 @@
-from typing import List
 from collections import Counter
 
 from aocd import get_data
 
 
-DATA: List[str] = get_data(year=2024, day=1).splitlines()
+DATA = get_data(year=2024, day=1).splitlines()
 L = []
 R = []
 
