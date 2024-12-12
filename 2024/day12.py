@@ -46,40 +46,40 @@ def find_clusters(matrix: np.ndarray) -> list[list[tuple[int, int]]]:
 
 
 def perimeter(cluster: list[int]) -> int:
-    area = 0
+    peri = 0
     for x, y in cluster:
-        area += 4 - (
+        peri += 4 - (
             ((x - 1, y) in cluster) +
             ((x, y - 1) in cluster) +
             ((x + 1, y) in cluster) +
             ((x, y + 1) in cluster)
         )
-    return area
+    return peri
 
 
 def discount_perimeter(cluster: list[int]) -> int:
-    area = 0
+    peri = 0
     for x, y in cluster:
         # Corners from appendices
         if (x - 1, y) not in cluster and (x, y + 1) not in cluster:
-            area += 1
+            peri += 1
         if (x + 1, y) not in cluster and (x, y - 1) not in cluster:
-            area += 1
+            peri += 1
         if (x - 1, y) not in cluster and (x, y - 1) not in cluster:
-            area += 1
+            peri += 1
         if (x + 1, y) not in cluster and (x, y + 1) not in cluster:
-            area += 1
+            peri += 1
 
         # Corners from groups of three
         if (x - 1, y) in cluster and (x, y + 1) in cluster and (x - 1, y + 1) not in cluster:
-            area += 1
+            peri += 1
         if (x + 1, y) in cluster and (x, y - 1) in cluster and (x + 1, y - 1) not in cluster:
-            area += 1
+            peri += 1
         if (x - 1, y) in cluster and (x, y - 1) in cluster and (x - 1, y - 1) not in cluster:
-            area += 1
+            peri += 1
         if (x + 1, y) in cluster and (x, y + 1) in cluster and (x + 1, y + 1) not in cluster:
-            area += 1
-    return area
+            peri += 1
+    return peri
 
 
 def part1():
