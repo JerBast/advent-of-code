@@ -8,12 +8,6 @@ from collections import defaultdict
 DATA = get_data(year=2024, day=20)
 DATA = np.array([np.array(list(row)) for row in DATA.splitlines()])
 
-CHEATS = []
-for y in range(1, DATA.shape[0] - 1):
-    for x in range(1, DATA.shape[1] - 1):
-        if DATA[y, x] == '#':
-            CHEATS.append((x, y))
-
 
 def shortest_path(matrix: np.ndarray):
     s_y, s_x = np.argwhere(matrix == 'S')[0]
