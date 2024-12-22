@@ -1,7 +1,4 @@
-import numpy as np
-
 from aocd import get_data
-from collections import defaultdict
 
 
 DATA = get_data(year=2024, day=22)
@@ -26,23 +23,21 @@ def part1():
 
 
 def part2():
-    traders = []
-    for secret in DATA:
+    sequences = {}
+    for idx, secret in enumerate(DATA):
         w = []
-        info = defaultdict(lambda: 0)
         for _ in range(2000):
             new_secret = compute_next_secret(secret)
             w.append((new_secret % 10) - (secret % 10))
             if len(w) == 4:
-                if tuple(w) not in info:
-                    info[tuple(w)] = new_secret % 10
+                tw = tuple(w)
+                if tw not in sequences:
+                    sequences[tw] = [None] * len(DATA)
+                if sequences[tw][idx] is None:
+                    sequences[tuple(w)][idx] = new_secret % 10
                 w.pop(0)
             secret = new_secret
-        traders.append(info)
-
-    ws = map(tuple, np.unique(np.concatenate(
-        [list(info.keys()) for info in traders]), axis=0))
-    print(max(sum(info[w] for info in traders) for w in ws))
+    print(max(sum(e for e in v if e is not None) for v in sequences.values()))
 
 
 if __name__ == '__main__':
